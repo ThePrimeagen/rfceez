@@ -58,6 +58,14 @@ function M.setup()
 
 end
 
+function M.add()
+    local text = vim.fn.input({prompt = "Note > "})
+    local reader = get_current_reader()
+    reader.highlights:add_from_cursor(text)
+    reader.highlights:refresh_highlights()
+    reader.reader:write(reader.highlights)
+end
+
 function M.add_from_cursor(text)
     local reader = get_current_reader()
     reader.highlights:add_from_cursor(text)
