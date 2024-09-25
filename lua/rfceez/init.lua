@@ -66,6 +66,14 @@ function M.add()
     reader.reader:write(reader.highlights)
 end
 
+function M.rm()
+    get_current_reader().highlights:rm_from_cursor()
+end
+
+function M.rm_all()
+    get_current_reader().highlights:rm_all()
+end
+
 function M.add_from_cursor(text)
     local reader = get_current_reader()
     reader.highlights:add_from_cursor(text)
