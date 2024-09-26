@@ -52,33 +52,38 @@ function M.setup()
         group = RFCeezGroup,
         pattern = "*",
         callback = function()
-            print("leaving window", vim.fn.bufnr("%"))
         end
     })
 
+end
+
+local function refresh_and_save()
+    local reader = get_current_reader()
+    reader.reader:write(reader.highlights)
+    reader.highlights:refresh_highlights()
 end
 
 function M.add()
     local text = vim.fn.input({prompt = "Note > "})
     local reader = get_current_reader()
     reader.highlights:add_from_cursor(text)
-    reader.highlights:refresh_highlights()
-    reader.reader:write(reader.highlights)
+    refresh_and_save()
 end
 
 function M.rm()
     get_current_reader().highlights:rm_from_cursor()
+    refresh_and_save()
 end
 
 function M.rm_all()
     get_current_reader().highlights:rm_all()
+    refresh_and_save()
 end
 
 function M.add_from_cursor(text)
     local reader = get_current_reader()
     reader.highlights:add_from_cursor(text)
-    reader.highlights:refresh_highlights()
-    reader.reader:write(reader.highlights)
+    refresh_and_save()
 end
 
 function M.nav_next()

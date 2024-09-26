@@ -180,7 +180,7 @@ function RFCeezHighlights:close_notes()
     end
 
     if self.buf_id and vim.api.nvim_buf_is_valid(self.buf_id) then
-        vim.api.nvim_buf(self.buf_id, {force = true})
+        vim.api.nvim_buf_delete(self.buf_id, {force = true})
     end
 
     self.win_id = nil
